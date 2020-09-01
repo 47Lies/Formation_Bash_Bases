@@ -1,0 +1,503 @@
+---
+output:
+  html_document:
+    self_contained: yes
+    toc: yes
+    toc_float: yes
+---
+
+
+# Formation BASH
+
+## User Interface
+
+Interaction between the User and the Machine
+
+Input - Compute - Output
+
+Smartphone
+
+Touch screen - application on the phone - screen/speaker
+
+ATM
+
+Function key/Touchscreen - the CPU - Screen/Printer/Dispenser
+
+Personal computeur
+
+Inputs
+Keyboard/mouse/youchscreen - the computeur - screen/speakers/any other device
+
+What doest the computer?
+
+Input interpretation - program action - output response
+
+Each part of the software consume ressources
+
+exemple Save a file in excel
+
+
+Possibles inputs
+Mouse listener (mouse position/click listener save button/Menu navigation) 
+Keyboard command(CTRL+S,ALT+F-ALT+S,ALT+F-arrows-enter)
+
+Program action
+Writing a file
+
+Output
+The file name doesn't have a star anymore
+The save button is grey
+
+Every part of the software hase to be programmed and might consume ressources. At the beginning of informatics and nowdays in some specific cases, you might want to simplify every possible input and output to focus mainly to program.
+
+Shell: Command line interpreter that gave you acces to internal functionalities of the operating system. In other word, your operating system have some built in tools that you can use directly, with keyboard input and minimal output.
+
+
+## BASH
+
+Bash: Bash is the most frequent command line interpretor in most linux distribution
+
+Bash will allow you tu use most of the bioinformatics tools, which are mainly command-line tools.
+
+Inserer capture d'ecran
+
+PS1:primaty prompt string, contain some useful informations or not customable
+
+Command zone: provided by the user, usually a command or the name of a script 
+
+## Concepts & Commands
+
+### command and options
+
+**cal**
+
+````
+cal
+````
+command cal - display a **cal**endar
+
+
+````
+cal --help
+
+cal -h
+
+cal --monday
+
+cal -m
+````
+
+the options
+
+`-h` or `--help` will give you a brief description of the command what it does and it's different options
+
+by convention
+
+`-` option in its shortform one character, most often short form options can be combined if they make sense
+
+`--` option in its longform considered as human readable
+
+<details>
+<summary>To go further</summary>
+<p>  
+````
+cal --year
+
+cal -ym
+````
+</p>
+</details>
+
+
+### argument, variable, case & special character
+
+**echo**
+
+#### argument
+
+````
+echo "hello world"
+````
+
+**echo** is a command that output the strings that has been passed as argument
+
+**"hello world"** is the argument passed to the echo command. echo will display on the terminal what is inbetween \"
+
+#### variable
+
+````
+ma_variable_pour_l_example="hello world"
+````
+
+**ma_variable_pour_l_example** is a variable, it has a name ma_variable_pour_l_example and we assign it the value "hello world". A variable is a place holder for a value that we may not want to write directly for any reason (multiple access, possible modification, unknown values).
+
+**=** is an operator that will create the variable and initiate it with the value that follows, be careful not to leave some space before or after, otherwise the BASH will interpret it as a command call to ma_variable_pour_l_example.
+
+**_** since BASH interpret spaces as command separator we could not call our variable `ma variable pour l example` otherwise it would have call the `ma` command and `variable pour l example` would have been considered as argument. Since the `-` is by convention reserved to the options, `_` is a good alternatives.
+
+````
+echo ma_variable_pour_l_example
+echo "${ma_variable_pour_l_example}"
+````
+
+BASH will need some special character to interpret it as a variable and not just as a string
+
+`${}` will allow access to the value of the variable. They is some other ways to access variable values but `${}` has proven to be portable between command line interpretors and their different versions.
+
+
+#### case
+
+````
+echo "${Ma_variable_pour_l_example}"
+````
+
+For BASH and every other Linux based command line interpretor (everything out of windows) there is a difference between ma_variable_pour_l_example and Ma_variable_pour_l_example. 
+
+
+##### Recommandations
+
+They is several norms for naming variables but they might not be respected. We will recomand you to:
+
+* don't use full upper case letters 
+
+* name your variable with an human readable name
+
+* avoid any space since they will be rejected by most interpretors
+
+* avoid any special caracter `§%µ£...`
+
+* avoid any reserved caracter `\${}...`
+
+* avoid any punctuation
+
+
+<details>
+<summary>to go further</summary>
+<p>  
+
+**escape character**
+
+````
+Ma_variable_pour_l_example=${ma_variable_pour_l_example}
+````
+
+We can use the value of a variale and copy it to another variable
+
+````
+echo "${ma_variable_pour_l_example}${Ma_variable_pour_l_example}"
+````
+
+We can use multiple variable in the same call
+
+````
+echo -e "${ma_variable_pour_l_example}\n\"${Ma_variable_pour_l_example}\""
+````
+
+`-e` is the echo option allowing interpretation of backlash escapes.
+
+The escape character came in two forms:
+
+In `\n`, the backlash(`\`) is there for the interpreter to say that the following one(`n`) is not a regular `n` but is to be considered as a control character. `\n` is a line feed, or a newline character. `\t` is the tabulation character.
+
+In `\"`, the backlash is there for the interpreter to say that the following one(`\"`) is to be considered as a regular character. In this case the `\` is considered as an escape character preventing interpretation of the following character. 
+
+
+**Naming Convention**
+
+you can enconter several naming convention
+
+Formatting | 	Name(s)
+:-:|:-:
+twowords | flat case
+TWOWORDS |	upper flat case
+twoWords |	(lower) camelCase, dromedaryCase
+TwoWords |	(upper) CamelCase, PascalCase
+two_words |	snake_case, pothole_case
+TWO_WORDS |	SCREAMING_SNAKE_CASE, MACRO_CASE, CONSTANT_CASE
+Two_Words |	Camel_Snake_Case
+two-words |	kebab-case, dash-case, lisp-case
+TWO-WORDS |	TRAIN-CASE, COBOL-CASE, SCREAMING-KEBAB-CASE
+Two-Words |	Train-Case, HTTP-Header-Case
+source wikipedia:[https://en.wikipedia.org/wiki/Naming_convention_(programming)](https://en.wikipedia.org/wiki/Naming_convention_(programming))
+
+**environment vairable**
+
+Some variables are already defined by the operating system for internal operations. Do not use their name since it may create a conflict. They are usually written in capital letters only. They can be access with the `printenv` command.
+
+</p>
+</details>
+
+
+### Directory, root directory, path, home, working directory, absolute path, relative path
+
+#### Directory
+
+A directory (also called folder) is a file system cataloging structures that contains references to other computer files and possibly other directories. In other words a directory may have directories inside or files. Directories have a stem leaves structures which is also hierarchical. 
+
+**ls**
+To known the content of a directory you can use the ls (**l**i**s**t) command and the path (will be explained later) to the directory as argument. Without arument, `ls` will list everything in the working directory (will also be explained later).
+
+#### root directory
+
+The root directory is the top most directory in a hierarchy. 
+
+In a Unix operating system, it look like this:
+
+````
+ls /
+````
+
+![Root folder](Ubuntu_Filesystem_Hierarchy.png)
+
+Most of the linux distribution share the same directory structure àt the top most level In windows, each disk has it's own root. 
+
+#### path
+
+To determine a localisation in the folders hierarchical structure, we use a path.
+
+````
+/bioinfo/users/ltaing/CondaCache/Rsystempiper-9f39fb2df62d3251cbebca4ab7700d89/bin
+````
+
+the leftiest `/` (called slash) refers to the root each names. `bioinfo` is the name of the folder at the root level and `users` directory is included inside `bioinfo`. Each other slash are considered as folder separator. The rightiest name (`bin` in our case), can either be a folder or a file. In that case, `bin` is a folder.
+
+Since `bin` is a folder, `/bioinfo/users/ltaing/CondaCache/Rsystempiper-9f39fb2df62d3251cbebca4ab7700d89/bin` and `/bioinfo/users/ltaing/CondaCache/Rsystempiper-9f39fb2df62d3251cbebca4ab7700d89/bin/` are equivalent.
+
+#### home directory
+
+The home directory is the directory containing the files (and directories) of a specific user. The concept of home directory is present in all operating system. Usually, it is the active directory when you open a terminal. To know the path to your home you can use the variable `$HOME` such as `echo $HOME`.
+
+Sometimes, you can see `~` as a place holder for the home directory.
+
+
+#### working directory
+
+**pwd**
+
+Since you open a terminal and until you close it, you are somewhere in the file system. That somewhere is called the working directory. When you open a terminal, your working directory is your home directory. To known the current working directory you can use the `pwd` command (**p**rint **w**orking **d**irectory).
+
+**cd**
+
+If you want to change the directory you can use the cd (**c**hange **d**irectory) command.
+
+cd <path to the destination's directory>
+
+````
+cd /
+ls
+pwd
+cd $HOME
+ls
+pwd
+````
+
+if you don't precise a destination directory, cd will change the directory to the home directory.
+
+**self directory:.** 
+
+`.` is a shortcut from the current directory to the current directory
+
+````
+cd $HOME
+ls -a
+pwd
+cd .
+pwd
+````
+
+Not very useful for now, but quite illustrative.
+
+**parent directory:..** 
+
+`..` is a shortcut from the current directory to the parent directory (one directory above in the tree).
+
+````
+cd $HOME
+pwd
+cd ..
+pwd
+cd $USER
+pwd
+````
+
+Every directory have a `..` shortcut even the root directory. In that case it point to the root directory itself. 
+
+**absolute and relative path**
+
+When we look at a path, they're is two possible origins:
+
+* from the current directory, the path is then called relative path. Technically a relative path is something that begins with `./` but its presence is not mandatory and most often omitted.
+
+
+* from the root directory, the path is then called absolute path. Even if it can handle `..` in it's folders, an absolute path should be the most direct path to the destination.
+
+As long as they point to the same location they are strictly similar. Depending on the circusmstances one might be more fitted to the other.
+
+#### create and delete directories
+
+**mkdir** <name of the directory to create>
+
+make directory named <name of the directory to create> from the working directory
+
+````
+pwd
+mkdir example_directory
+cd example_directory
+pwd
+cd ..
+mkdir example_directory
+````
+
+If the working directory already contains a `example_directory`, mkdir will output (return) an error message. 
+
+
+**rmdir** <name of the directory to delete>
+
+````
+ls 
+rmdir example_directory
+ls 
+````
+
+If the working directory do not contains a `example_directory`, rmdir will output (return) an error message. 
+
+
+### File, copy, move, remove
+
+A file is a computer ressource to record ny kind of data (text, sound, video, picture, software). Most of the time they contain an extension (.txt for example) to indicate the kind of stored data
+
+we can distinguate two kind of files:
+
+* **text file** also refered as flat file. These files contains text that can be directly read within the shell
+
+* **binary file** any other kind of file that can not be directly read from the shell
+
+
+**touch**
+
+````
+mkdir example_directory
+cd example_directory
+touch exemple_file_a.txt
+ls -al --time-style=full-iso
+````
+
+touch create an empty file, the 5th column of the `ls -al` is the file size, in our case it should be 0. It is a misuse of the touch programs.
+
+
+#### cp
+
+**c**o**p**y  a file
+
+copy <path of the source> <path of the destination>
+
+copy as its name might suggest create a copy of the source to the destination
+
+````
+touch exemple_file_a.txt
+ls -al --time-style=full-iso
+cp exemple_file_a.txt exemple_file_b.txt
+ls -al --time-style=full-iso
+mkdir exemple_directory_b
+cp exemple_file_a.txt exemple_directory_b/.
+````
+
+Since copy do not alter the source destination, it remains what it was before the copy call. In the last command we ask copy to copy `exemple_file_a.txt` into the directory
+
+
+#### rm
+
+**r**e**m**ove  a file
+
+rm <path of the file to remove>
+
+
+````
+touch exemple_file_to_be_remove.txt
+ls -al --time-style=full-iso
+rm -i exemple_file_to_be_remove.txt
+ls -al --time-style=full-iso
+````
+
+````
+touch exemple_file_to_be_remove.txt
+ls -al --time-style=full-iso
+rm exemple_file_to_be_remove.txt
+````
+
+Be careful of what you remove, since rm do not ask for any confirmation and that the file is not store in a trash bin folder, it will be lost forever.
+
+#### mv
+
+**m**o**v**e
+
+move -i <path of the source> <path of the destination>
+
+move change the location of the source file to the location of the destination. It will remove the source file.
+
+````
+mv -i exemple_file_a.txt exemple_file_c.txt
+ls -al --time-style=full-iso
+mv -i exemple_file_c.txt exemple_file_b.txt
+````
+
+Be careful of overwritting pre existing files, if the `-i` weren't present, mv would have simply replace pre existing `exemple_file_b.txt`.
+
+
+### fichiers en texte brut: cat, head, tail, more
+
+cat
+
+head 
+
+tail
+
+more 
+
+less
+
+
+### recherche dans un fichier en texte brut:  grep, sed
+
+<details>
+<summary>Pour en savoir plus</summary>
+<p>  
+lsdkhfmsqhf
+</p>
+</details>
+
+## Permissions
+
+### read
+
+### write
+
+#### editeur de texte
+
+### execute
+
+## Script
+
+## Les Flux:  la principale différence avec windows
+
+### flux de redirection: vers un fichier >, >>
+
+### flux de redirection: vers une autre commande |
+
+### flux d'erreurs: 2>
+
+## Usages récurents
+
+### Se connecter à une machine distantes
+
+### Copier un fichier entres machines distantes
+
+## Expresssion regulieres
+
+
+
+
+
+
+
+

@@ -444,39 +444,158 @@ mv -i exemple_file_c.txt exemple_file_b.txt
 Be careful of overwritting pre existing files, if the `-i` weren't present, mv would have simply replace pre existing `exemple_file_b.txt`.
 
 
-### fichiers en texte brut: cat, head, tail, more
+### text file: cat, head, tail, more
 
-cat
+#### cat
 
-head 
+con**cat**enate
 
-tail
-
-more 
-
-less
+the utility reads files sequentially and write them to standard output. Cat can read any text file and will dispolay it on termional.
 
 
-### recherche dans un fichier en texte brut:  grep, sed
+in the folder where this example is located, try:
+````
+cat fastqc_data.txt
+````
 
-<details>
-<summary>Pour en savoir plus</summary>
-<p>  
-lsdkhfmsqhf
-</p>
-</details>
+#### head 
+
+**head** will allow you to access to the first lines of a flat files.
+
+````
+head fastqc_data.txt
+````
+
+#### tail
+
+**tail** will allow you to access to the last lines of a flat files.
+
+````
+tail fastqc_data.txt
+````
+
+#### more 
+
+**more** allows you to display a text file, page by page
+
+````
+more fastqc_data.txt
+````
+
+
+### less
+
 
 ## Permissions
 
+In most of operating system, permissions are the rights that you have on a file or a directory.
+
 ### read
+
+If you have the **r**ead rigth then you can read it, in the shell or using any fitted program. The read rights means that you can use a program to read it such as cat or any text editor. It means also that if you don't have the read rights, you can't use any unix tools or program to access it such as `cp` or `cat` for example. 
 
 ### write
 
-#### editeur de texte
+If you have the **w**right rigth then you can wright it, in the shell or using any fitted program. It means that you can modify (add/delete) all or part of it.
 
 ### execute
 
-## Script
+If you have the e**x**ecute rigth then you can execute it wherever it is a text file (called a script) or a binary file (program of application), in the shell or using any fitted program.
+
+### chmod
+
+To know the rights that you have on a file. you can une the `ls` command with the `-l` options. The right are displayed in the first columns caracter 2 to 5. If you have a right, the corresponding letter is displayed if not, an hyphen is displayed.
+
+**ch**ange **mod**e 
+
+If you want to change the rights that you have on a right you can use the `chmod` command.
+
+````
+ls -l fastqc_data.txt
+cat fastqc_data.txt
+chmod u-r fastqc_data.txt
+ls -l fastqc_data.txt
+cat fastqc_data.txt
+chmod u+r fastqc_data.txt
+ls -l fastqc_data.txt
+cat fastqc_data.txt
+````
+
+The `u-r` option means for the user (you) remove the read right. The `u+r` option mean for the user (still you) to add the read rigth. You can only change the rights of the files that you own. You can encounter other way to defined rights to a file base on number but for a simple use, we recommand you to stay with this formalism until you are more familiar with shell.
+
+<details>
+<summary>to go further</summary>
+<p>  
+
+In the `ls -l` output, we can see that there is place for other users rights. You are defined as **u**ser. Other users are defined by the relation they share with you. You also belongs to a **g**roup, at least a group of yourself. You may want to share some rights with the group and not to unknown users or users outsite the group. The third and last group of users are the **o**thers.
+
+The directories also have rights.
+
+### ownership
+
+Each file or directory bleongs to a user and a group. To know the owner of a file, you can use the `ls -l` information. The owner information is displayed in the second column. The third column is the owner information.
+
+
+ 
+When you create a file or a directory, it belongs to you. You are the owner of the file/directory. You can change ownership of a file that you own using the `chmown <new user>:<new group>` (**ch**ange **own**er) command.
+
+</p>
+</details>
+
+### looking for a string
+
+**grep**
+
+grep is a powerful tool to look into an input (most likely a text file) and select lines that fit a pattern and print the result it into the shell.
+
+grep "<pattern>" <file to look into> 
+
+from the example file:
+````
+grep "total" fastq_report.txt
+````
+
+##sed**
+
+**s**tring **ed**itor
+
+usage:
+
+sed s/<motif to replace>/<replace motif>/
+
+````
+sed s/lieng/tom/ example_ls_output.txt
+````
+
+As you can see only the first occurence of lieng is substitute in each line.
+
+If you wan to susbtitute every occurence of lieng, you have to add the global option.
+
+sed s/<motif to replace>/<replace motif>/g
+
+### scripts
+
+In some occasions, it can be more convenient to store instructions (commands) in a file and executes theses instructions in one time. A file with bash instruction is then called a bash script. By convention, it has a `.sh` extension. In that script file, each instuction is on a new line. They will be executed sequentially (one by one, from top to bottom) and each instruction will have to finish before going to the next one.
+
+Before executing a bash script, you need the execution rights.
+
+To add the execution rights to a script that you own you must use the `chmod` command with the `u+x` argument.
+
+To execute a script you simply need to enter the path to it.
+
+Assuming that you are in the repertory where the script is located:
+
+./<name of the script>.sh
+
+Depending on configuration, you may be able to simply use the name without using the `./`
+
+You can also execute a script that is not in the working directory by using it path (absolute or relative)
+
+<path to the script directory>/<name of the script>.sh
+
+
+
+Until now we have seen concept that are shared between every operating system. Each concept and command have their counterpart in windows either in DOS or powershell. There is also some subtilities in the permission system in windows but the concept remains identicals.
 
 ## Les Flux:  la principale différence avec windows
 

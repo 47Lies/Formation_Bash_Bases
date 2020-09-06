@@ -9,7 +9,7 @@ output:
 
 # Formation BASH
 
-## User Interface
+## Human - Machine
 
 Interaction between the User and the Machine
 
@@ -51,6 +51,9 @@ The save button is grey
 Every part of the software hase to be programmed and might consume ressources. At the beginning of informatics and nowdays in some specific cases, you might want to simplify every possible input and output to focus mainly to program.
 
 Shell: Command line interpreter that gave you acces to internal functionalities of the operating system. In other word, your operating system have some built in tools that you can use directly, with keyboard input and minimal output.
+
+**What you should remember?**
+
 
 
 ## BASH
@@ -594,22 +597,159 @@ You can also execute a script that is not in the working directory by using it p
 <path to the script directory>/<name of the script>.sh
 
 
+## streams
+
+### standard streams
+
+Each programs (unix tools, script, applications) can use 3 streams to interact with the user.
+
+#### stdin
+
+The **st**andard **in**put consist of all the keyboard input since the program is called.
+
+example:
+````
+touch example_file.txt
+rm -i example_file.txt
+````
+
+When using the `-i` option, `rm` is waiting for some standard input (keyboard input) before acting. In this case `touch` do not use any standard input `example_file.txt` is an argument. Standard input may not be mandatory.
+
+#### stdout
+
+The **st**andard **out**put consist of what the program should exit during a regular execution.
+
+````
+pwd
+````
+
+The path to the working directory is displayed on screen and constitute the standard output of `pwd`. As for the standard input, the stdout input may not be mandatory, for example `cp` or `mv` doesn't have any standard output(in their regular use).
+
+#### stderr
+
+The **st**andard **err**or consist of what the program should exit during an (anticipated) irregular execution.
+
+````
+mffsldqigvdsacfsdfgeg
+````
+Of course `mffsldqigvdsacfsdfgeg` do not exists and nothing should be expected. But since calling an non existant software is an irregular execution, bash (and most shell) will output and error message.
+
+````
+>bash: mffsldqigvdsacfsdfgeg: command not found
+````
+
+Be careful, not all program have build in validity test. A program may encounter an issue whitout printing an error due to several reasons (conception's choice, poor conception, unanticipated error).
+
+In some environment, your standard error stream may be emphazised (colored in red).
+
+### stream redirection
 
 Until now we have seen concept that are shared between every operating system. Each concept and command have their counterpart in windows either in DOS or powershell. There is also some subtilities in the permission system in windows but the concept remains identicals.
 
-## Les Flux:  la principale différence avec windows
+<details>
+<summary>to go further</summary>
+<p>  
+Here is a list of corresponding tools between Windows shell (DOS or Powershell) and unix system : [here](https://www.lemoda.net/windows/windows2unix/windows2unix.html)
+<p>
 
-### flux de redirection: vers un fichier >, >>
+The stream redirection is one of the powerful tools that are specific to the UNIX/LINUX operating system. The main idea is that the output  stream of a program can be piped into the input stream of another program or directly into a file.
+
+### stream into a file
+
+**>**
+
+usage:
+
+comand [options] <arguments> > <output file>
+
+The `>` operator allow you to redirect the standard output stream in to a file.
+
+exemple:
+
+````
+rm inventory.txt
+ls /usr/local/bin > inventory.txt
+more inventory.txt
+ls /usr/local > inventory.txt
+more inventory.txt
+````
+
+As you can observe in the exemple, the `>` operator redirect the standard output into the inventory text file. If inventory.txt does not exists, the `>` operator will create it.  The `>` overwrite any previous version of inventory.txt whithout any warning so be careful of its usage.
+
+**>>**
+
+In case you wish to keep the previous information of a file, the `>>` will write the new information a the end of a file.
+
+usage:
+
+comand [options] <arguments> >> <output file>
+
+exemple:
+
+````
+rm inventory.txt
+ls /usr/local/bin >> inventory.txt
+more inventory.txt
+ls /usr/local >> inventory.txt
+more inventory.txt
+````
+As you can observe, the `>>` operator will create the file if it doesn't exists and will write the output stream at the end of it (which can be considered as the begening since it will be and empty file).
+
+<details>
+<summary>to go further</summary>
+<p>
+Actually the output stream is the by default stream to be use in redirection. But as we saw earlier, another stream is available. To distinguish the 2 streams we can use `1>` for the standard output and `2>` for the error output. By convention, `>` is equivalent to `1>`.
+
+If you want to redirect both stream simultenouslty into one file, you can use the `&>` operator.
+
+If you want to redirect both stream simultenouslty into two different files, you can use the `1>` and `2>` in the same command.
+
+command [options] <arguments> 1> stdout_file.txt 2> stdout_file.txt 
+
+Be careful not to leave some space between the character.
+<p>
+
+### stream from a file
+
+**<**
+
+usage:
+
+comand [options] <arguments> < <output file>
+
+The `<` operator allow you to redirect a file into the standard input stream.
+
+In the example directory
+```
+grep "Total Sequences" <  fastqc_data.txt
+```
 
 ### flux de redirection: vers une autre commande |
 
-### flux d'erreurs: 2>
+More powerful than writting into files, you can output stream of a first program into the input stream of a second program by using the `|` (called pipe) operator.
+
+usage:
+<command 1> | <command 2> 
+
+In the example directory
+```
+grep "Total Sequences" fastqc_data.txt | sed "s/Total//"
+grep "Total Sequences" fastqc_data.txt | sed "s/Total//" | sed "s/Sequences//"
+grep "Total Sequences" fastqc_data.txt | sed "s/Total//" | sed "s/Sequences//" | sed "s/ //"
+grep "Total Sequences" fastqc_data.txt | sed "s/Total//" | sed "s/Sequences//" | sed "s/ //" | sed "s/\t//"
+```
+
+Welcome into a world of endless possibilities :).
 
 ## Usages récurents
 
 ### Se connecter à une machine distantes
 
+ssh <username in distant machine>@<distant machine identificator>
+
 ### Copier un fichier entres machines distantes
+
+scp <username in source machine>@<source machine identificator>:<path to the source file> <username in destination machine>@<detination machine identificator>:<path to the destination file>
 
 ## Expresssion regulieres
 

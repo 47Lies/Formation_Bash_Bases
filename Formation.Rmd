@@ -13,15 +13,50 @@ output:
 
 Interaction between the User and the Machine
 
-Input - Compute - Output
-
+```{r,echo=FALSE}
+library(DiagrammeR)
+DiagrammeR::grViz("
+digraph Interaction{
+	graph [rankdir = LR]
+node [width=2]
+Input -> Compute -> Output
+  { rank=same; Input; Output; }
+}",height=100)
+```
 Smartphone
 
-Touch screen - application on the phone - screen/speaker
+```{r,echo=FALSE}
+library(DiagrammeR)
+DiagrammeR::grViz("
+digraph boxes_and_circles{
+ graph [rankdir = LR]
+
+ node [width=2]
+ S[label=\"Touch screen\nMicrophone\"]; A[label=\"application\non the phone\"]; O[label=\"screen\nspeaker\nheadphone\"];
+
+ S->A A->O
+
+ {rank=same; S; O; }
+}",height=100)
+```
 
 ATM
 
-Function key/Touchscreen - the CPU - Screen/Printer/Dispenser
+
+```{r,echo=FALSE}
+library(DiagrammeR)
+DiagrammeR::grViz("
+digraph boxes_and_circles{
+ graph [rankdir = LR]
+
+ node [width=2]
+ S[label=\"Function key\nTouchscreen\"]; A[label=\"CPU\"]; O[label=\"Screen\nPrinter\nDispenser\"];
+
+ S->A A->O
+
+ {rank=same; S; O; }
+}",height=100)
+```
 
 Personal computeur
 
@@ -54,6 +89,21 @@ Shell: Command line interpreter that gave you acces to internal functionalities 
 
 **What you should remember?**
 
+```{r,echo=FALSE}
+library(DiagrammeR)
+DiagrammeR::grViz("
+digraph boxes_and_circles{
+ graph [rankdir = LR]
+
+ node [width=2]
+ Action; I[label=\"Action Interpreteur\"]; C[label=\"Program Action\"]; R[label=\"Program Reaction\"]; Output
+
+ Action->I I->C C->R R->Output
+
+ {rank=same; Action; Output; }
+ {rank=same; R; I; }
+}",height=100)
+```
 
 
 ## BASH
@@ -62,15 +112,17 @@ Bash: Bash is the most frequent command line interpretor in most linux distribut
 
 Bash will allow you tu use most of the bioinformatics tools, which are mainly command-line tools.
 
-Inserer capture d'ecran
+![Root folder](Bash_Screenshot.png)
 
-PS1:primaty prompt string, contain some useful informations or not customable
+PS1:primaty prompt string, contain some useful informations or not, customisable
 
 Command zone: provided by the user, usually a command or the name of a script 
 
 ## Concepts & Commands
 
 ### command and options
+
+command<enter>
 
 **cal**
 
@@ -108,13 +160,23 @@ cal --year
 
 cal -ym
 ````
+
+**man**ual
+
+man is a command to acces the build in help of a command.
 </p>
 </details>
 
+**What you should remember?**
+
+Commands can have options, that alters their behaviours.
+Commands usually have a `-h` or a `--help` option.
 
 ### argument, variable, case & special character
 
 **echo**
+
+echo <argument><enter>
 
 #### argument
 
@@ -124,7 +186,13 @@ echo "hello world"
 
 **echo** is a command that output the strings that has been passed as argument
 
-**"hello world"** is the argument passed to the echo command. echo will display on the terminal what is inbetween \"
+**"hello world"** is the argument passed to the echo command. Since it has several character,it is called a character string, or simply string. **echo** will display on the terminal what is inbetween \"
+
+
+**What you should remember?**
+
+You can give a command or a program an argument.
+
 
 #### variable
 
@@ -226,9 +294,14 @@ source wikipedia:[https://en.wikipedia.org/wiki/Naming_convention_(programming)]
 **environment vairable**
 
 Some variables are already defined by the operating system for internal operations. Do not use their name since it may create a conflict. They are usually written in capital letters only. They can be access with the `printenv` command.
-
 </p>
 </details>
+
+**What you should remember?**
+
+* You can store informations into a variable.
+* You can access information of a variable using `${<name_of_the variable>}`.
+* Be careful of the letter case, more generally be careful of how you name your variables
 
 
 ### Directory, root directory, path, home, working directory, absolute path, relative path
@@ -364,6 +437,14 @@ ls
 
 If the working directory do not contains a `example_directory`, rmdir will output (return) an error message. 
 
+**What you should remember?**
+
+* You are always in a directory. The shortcut to the directory where you are located is called **working directory**.
+* `pwd` will print your working directory.
+* The **root** directory is the top most directory in the hierarchical structure of directories.
+* A path is the folder succession to destination (wherever it is a file or a directory).
+* An absolute path is a path from the root directory
+* A relative path is a patf from the working directory
 
 ### File, copy, move, remove
 
@@ -446,6 +527,13 @@ mv -i exemple_file_c.txt exemple_file_b.txt
 
 Be careful of overwritting pre existing files, if the `-i` weren't present, mv would have simply replace pre existing `exemple_file_b.txt`.
 
+**What you should remember?**
+
+* You can directly read a text file. You can not directly read a binary file.
+* copy <source> <destination>
+* rm <target>
+* mv = cp <source> <destination> then rm <source>
+
 
 ### text file: cat, head, tail, more
 
@@ -453,7 +541,7 @@ Be careful of overwritting pre existing files, if the `-i` weren't present, mv w
 
 con**cat**enate
 
-the utility reads files sequentially and write them to standard output. Cat can read any text file and will dispolay it on termional.
+The command reads files sequentially and write them to standard output. Cat can read any text file and will dispolay it on termional.
 
 
 in the folder where this example is located, try:
@@ -479,20 +567,33 @@ tail fastqc_data.txt
 
 #### more 
 
-**more** allows you to display a text file, page by page
+**more** allows you to display a text file, page by page and use space to moove to the **next** page
 
 ````
 more fastqc_data.txt
 ````
 
-
 ### less
 
 
+**What you should remember?**
+
+* cat Print everything
+* head print the first 10 lines
+* tails print the last 10 lines
+* more page by page display
+
 ## Permissions
+
+### ownership
+
+Each file or directory bleongs to a user and a group. To know the owner of a file, you can use the `ls -l` information. The owner information is displayed in the second column. The third column is the owner information.
+ 
 
 In most of operating system, permissions are the rights that you have on a file or a directory.
 
+
+From the owner point of view: 
 ### read
 
 If you have the **r**ead rigth then you can read it, in the shell or using any fitted program. The read rights means that you can use a program to read it such as cat or any text editor. It means also that if you don't have the read rights, you can't use any unix tools or program to access it such as `cp` or `cat` for example. 
@@ -532,18 +633,20 @@ The `u-r` option means for the user (you) remove the read right. The `u+r` optio
 
 In the `ls -l` output, we can see that there is place for other users rights. You are defined as **u**ser. Other users are defined by the relation they share with you. You also belongs to a **g**roup, at least a group of yourself. You may want to share some rights with the group and not to unknown users or users outsite the group. The third and last group of users are the **o**thers.
 
-The directories also have rights.
-
-### ownership
-
-Each file or directory bleongs to a user and a group. To know the owner of a file, you can use the `ls -l` information. The owner information is displayed in the second column. The third column is the owner information.
-
-
- 
-When you create a file or a directory, it belongs to you. You are the owner of the file/directory. You can change ownership of a file that you own using the `chmown <new user>:<new group>` (**ch**ange **own**er) command.
+The directories also have rights. You need the execute permissions to cross a directory.
 
 </p>
 </details>
+
+**What you should remember?**
+
+* Somebody owns a file or a directory, the owner.
+* everythings is based from the owner point of view, the user, the group and the other
+* read can open it, can copy it
+* write can open it, modify it
+* execute can execute it.
+* directories have rights also
+
 
 ### looking for a string
 
@@ -575,6 +678,12 @@ As you can see only the first occurence of lieng is substitute in each line.
 If you wan to susbtitute every occurence of lieng, you have to add the global option.
 
 sed s/<motif to replace>/<replace motif>/g
+
+
+**What you should remember?**
+
+* You can search for a specific string into a file.
+* You can replace a specific string with the string of your choice in a file.
 
 ### scripts
 
@@ -634,13 +743,18 @@ mffsldqigvdsacfsdfgeg
 ````
 Of course `mffsldqigvdsacfsdfgeg` do not exists and nothing should be expected. But since calling an non existant software is an irregular execution, bash (and most shell) will output and error message.
 
-````
->bash: mffsldqigvdsacfsdfgeg: command not found
-````
+![Root folder](StdErr.png)
 
 Be careful, not all program have build in validity test. A program may encounter an issue whitout printing an error due to several reasons (conception's choice, poor conception, unanticipated error).
 
 In some environment, your standard error stream may be emphazised (colored in red).
+
+**What you should remember?**
+
+* The streams may or may not be used by a program, depending of the context and the programmers.
+* the standard input is everything that can be input into a program, out of its arguments and options.
+* the standard output is everything that a program should output, most likely into the terminal.
+* the standard error is everything that a program should output if an irregular use occurs, most likely into the terminal, must be anticipated by the programmers.
 
 ### stream redirection
 
@@ -740,6 +854,15 @@ grep "Total Sequences" fastqc_data.txt | sed "s/Total//" | sed "s/Sequences//" |
 ```
 
 Welcome into a world of endless possibilities :).
+
+**What you should remember?**
+
+* You can redirect the streams into a file
+* `>` create and write or overwrite a file
+* `>>` write at the end of a file
+* `|` into another process
+
+
 
 ## Usages récurents
 

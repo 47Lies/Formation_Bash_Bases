@@ -735,7 +735,7 @@ The `u-r` option means for the user (the owner) remove the read right. The `u+r`
 * Directories have rights also.
 
 
-### looking for a string
+## looking for a string
 
 **grep**
 
@@ -748,7 +748,7 @@ from the example file:
 grep "total" fastq_report.txt
 ````
 
-##sed**
+**sed**
 
 **s**tring **ed**itor
 
@@ -773,7 +773,7 @@ sed s/<motif to replace>/<replace motif>/g
 
 * You can replace a specific string with the string of your choice in a file.
 
-### scripts
+## scripts
 
 In some occasions, it can be more convenient to store instructions (commands) in a file and executes these instructions in one time. A file with bash instructions is then called a bash script. By convention, it has a `.sh` extension. In that script file, each instuction is on a new line. They will be executed sequentially (one by one, from top to bottom) and each instruction will have to finish before going to the next one.
 
@@ -822,7 +822,7 @@ pwd
 
 The path to the working directory is displayed on screen and constitute the standard output of `pwd`. As for the standard input, the stdout input may not be mandatory, for example `cp` or `mv` doesn't have any standard output(in their regular use).
 
-#### stderr
+### stderr
 
 The **st**andard **err**or consist of what the program should exit during an (anticipated) irregular execution.
 

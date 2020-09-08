@@ -1,0 +1,9 @@
+Bash_Screenshot.png
+DaVincis_Quote.png
+example_ls_output.txt
+fastqc_data.txt
+Formation.html
+Formation.Rmd
+root_inventory.txt
+StdErr.png
+Ubuntu_Filesystem_Hierarchy.png

@@ -1,15 +1,16 @@
 ---
+title: Formation BASH
+author: Lieng TAING, Tom Gutman 
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+email: lieng.taing@curie.fr
 output:
   html_document:
     self_contained: yes
     toc: yes
-    toc_float: yes
+    theme: cerulean
 ---
 
-
-# Formation BASH
-
-## Human - Machine
+# Human - Machine
 
 Interactions between the **user** and the **machine**
 
@@ -94,7 +95,7 @@ digraph boxes_and_circles{
 
 Each part of the software consume ressources
 
-exemple:
+example:
 
 **Save a file in excel**
 ```{r,echo=FALSE}
@@ -133,7 +134,7 @@ digraph boxes_and_circles{
 ```
 
 
-## BASH
+# BASH
 
 Bash: Bash is the most frequent command line interpretor in most linux distribution.
 
@@ -143,15 +144,18 @@ Bash will allow you tu use most of the bioinformatics tools, which are mainly co
 
 PS1: primaty prompt string, contain some useful informations or not, customisable
 
-Command zone: provided by the user, usually a command or the name of a script 
+Command zone: provided by the user, usually a command or the name of a script
 
-## Concepts & Commands
+To properly exit a terminal: `exit<enter>`
 
-### command and options
+# Concepts & Commands
+
+## Command and options
 
 Archetypal use: `command [options]<enter>`
 
 **cal**
+
 display a **cal**endar
 
 ````
@@ -212,13 +216,13 @@ man man
 Commands can have options, that alters their behaviours.
 Commands usually have a `-h` or a `--help` option.
 
-### argument, variable, case & special character
+## Argument, variable, case & special character
 
 **echo**
 
 Archetypal use: `echo [options] <argument><enter>`
 
-#### argument
+### Argument
 
 ````
 echo "hello world"
@@ -240,7 +244,7 @@ Technically an option is a reserved argument. Both have to be anticipated by the
 <details>
 
 
-#### variable
+### Variable
 
 Archetypal use: `<name of my variable>=<value of my variable><enter>`
 
@@ -265,7 +269,7 @@ BASH will need some special character to interpret it as a variable and not just
 `${}` will allow access to the value of the variable. They is some other ways to access variable values but `${}` has proven to be portable between command line interpretors and their different versions.
 
 
-#### case
+### Case
 
 ````
 echo "${Ma_variable_pour_l_example}"
@@ -274,7 +278,7 @@ echo "${Ma_variable_pour_l_example}"
 For BASH and every other Linux based command line interpretor (everything out of windows DOS or powershell) there is a difference between ma_variable_pour_l_example and Ma_variable_pour_l_example. 
 
 
-##### Recommandations
+### Recommandations
 
 They is several norms for naming variables but they might not be respected. We will recomand you to:
 
@@ -349,24 +353,27 @@ Some variables are already defined by the operating system for internal operatio
 **What you should remember?**
 
 * You can store informations into a variable.
+
 * You can access information of a variable using `${<name_of_the variable>}`.
+
 * Be careful of the letter case, more generally be careful of how you name your variables
 
 
-### Directory, root directory, path, home, working directory, absolute path, relative path
+## Directory, root directory, path, home, working directory, absolute path, relative path
 
-#### Directory
+### Directory
 
 A directory (also called folder) is a file system cataloging structures that contains references to other computer files and possibly other directories. In other words, a directory may have directories inside or files. Directories have a stem leaves structures (parent - children) which is also considered as a hierarchical structure. 
 
 **ls**
+
 Archetypal use: `ls [options] <path to the folder to list><enter>`
 
 To known the content of a directory you can use the ls (**l**i**s**t) command and the path (will be explained later) to the directory as argument. Without arument, `ls` will list everything in the working directory (will also be explained later).
 
 If you don't provide a path to a folder, ls will list the working directory.
 
-#### root directory
+### Root directory
 
 The root directory is the top most directory in a hierarchy. 
 
@@ -380,7 +387,7 @@ ls /
 
 Most of the linux distribution share the same directory structure at the top most level. In windows, each disk has it's own root. 
 
-#### path
+### Path
 
 To determine a localisation in the folders hierarchical structure, we use a path.
 
@@ -394,14 +401,14 @@ Since `bin` is a folder, `/bioinfo/users/ltaing/CondaCache/Rsystempiper-9f39fb2d
 
 In windows the folder separator is '\' (backslash or antislash).
 
-#### home directory
+### Home directory
 
 The home directory is the directory containing the files (and directories) of a specific user. The concept of home directory is present in all operating system. Usually, it is the active directory when you open a terminal. To know the path to your home you can use the environment variable `$HOME` such as `echo $HOME`.
 
 Sometimes, you can see `~` as a place holder for the home directory.
 
 
-#### working directory
+### Working directory
 
 **pwd**
 
@@ -468,7 +475,7 @@ When we look at a path, they're is two possible origins:
 
 As long as they point to the same location they are strictly similar. Depending on the circusmstances one might be more fitted to the other.
 
-#### create and delete directories
+### Create and delete directories
 
 Archetypal use: `mkdir [options] <name of the directory to create><enter>`
 
@@ -523,7 +530,7 @@ If the working directory do not contains a `example_directory`, rmdir will outpu
 
 * A relative path is a patf from the working directory
 
-### File, copy, move, remove
+## File, copy, move, remove
 
 A file is a computer ressource to record ny kind of data (text, sound, video, picture, software). Most of the time they contain an extension (.txt for example) to indicate the kind of stored data.
 
@@ -540,52 +547,50 @@ Archetypal use: `touch [options] <file that you want to create><enter>`
 ````
 mkdir example_directory
 cd example_directory
-touch exemple_file_a.txt
+touch example_file_a.txt
 ls -al --time-style=full-iso
 ````
 
 Touch create an empty file, the 5th column of the `ls -al` is the file size, in our case it should be 0. It is a misuse of the touch programs.
 
-#### cp
-
+### Copy
 
 **c**o**p**y  a file
 
-Archetypal use: `copy [options] <path of the source> <path of the destination><enter>`
+Archetypal use: `cp [options] <path of the source> <path of the destination><enter>`
 
 Copy as its name might suggest create a copy of the source to the destination.
 
 ````
-touch exemple_file_a.txt
+touch example_file_a.txt
 ls -al --time-style=full-iso
-cp exemple_file_a.txt exemple_file_b.txt
+cp example_file_a.txt example_file_b.txt
 ls -al --time-style=full-iso
-mkdir exemple_directory_b
-cp exemple_file_a.txt exemple_directory_b/.
+mkdir example_directory_b
+cp example_file_a.txt example_directory_b/.
 ````
 
-Since copy do not alter the source destination, it remains what it was before the copy call. In the last command we ask copy to copy `exemple_file_a.txt` into the directory
+Since copy do not alter the source destination, it remains what it was before the copy call. In the last command we ask copy to copy `example_file_a.txt` into the directory
 
-
-#### rm
+### Remove
 
 **r**e**m**ove  a file
 
 Archetypal use: `rm [options] <path of the file to remove><enter>`
 
 ````
-touch exemple_file_to_be_remove.txt
+touch example_file_to_be_remove.txt
 ls -al --time-style=full-iso
-rm -i exemple_file_to_be_remove.txt
+rm -i example_file_to_be_remove.txt
 ls -al --time-style=full-iso
-touch exemple_file_to_be_remove.txt
+touch example_file_to_be_remove.txt
 ls -al --time-style=full-iso
-rm exemple_file_to_be_remove.txt
+rm example_file_to_be_remove.txt
 ````
 
 Be careful of what you remove, since rm do not ask for any confirmation and that the file is not store in a trash bin directory, it will be lost forever.
 
-#### mv
+### Move
 
 **m**o**v**e
 
@@ -594,40 +599,43 @@ Archetypal use: `mv [options] <path of the source> <path of the destination><ent
 move change the location of the source file to the location of the destination. It will remove the source file.
 
 ````
-touch exemple_file_a.txt
-touch exemple_file_b.txt
+touch example_file_a.txt
+touch example_file_b.txt
 ls -al --time-style=full-iso
-mv -i exemple_file_a.txt exemple_file_c.txt
+mv -i example_file_a.txt example_file_c.txt
 ls -al --time-style=full-iso
-mv -i exemple_file_c.txt exemple_file_b.txt
+mv -i example_file_c.txt example_file_b.txt
 ````
 
-Be careful of overwritting pre existing files, if the `-i` weren't present, mv would have simply replace pre existing `exemple_file_b.txt`.
+Be careful of overwritting pre existing files, if the `-i` weren't present, mv would have simply replace pre existing `example_file_b.txt`.
 
 **What you should remember?**
 
 * You can directly read a text file. You can not directly read a binary file.
+
 * copy `<source> <destination>`
+
 * rm `<target>`
+
 * mv = cp `<source> <destination>` then rm `<source>`
 
-### text file: cat, head, tail, more
+## Text file: cat, head, tail, more
 
-#### cat
+### Cat
 
 con**cat**enate
 
 Archetypal use: `cat [options] <path of the file to concatenate><enter>`
 
-The command reads files sequentially and write them to standard output. Cat can read any text file and will dispolay it on termional.
+The command reads files sequentially and write them to standard output. Cat can read any text file and will dispolay it on terminal.
 
 
-in the folder where this example is located, try:
+In the folder where this example is located, try:
 ````
 cat fastqc_data.txt
 ````
 
-#### head 
+### Head 
 
 Archetypal use: `head [options] <path of the file><enter>`
 
@@ -637,7 +645,7 @@ Archetypal use: `head [options] <path of the file><enter>`
 head fastqc_data.txt
 ````
 
-#### tail
+### Tail
 
 Archetypal use: `tail [options] <path of the file><enter>`
 
@@ -647,7 +655,7 @@ Archetypal use: `tail [options] <path of the file><enter>`
 tail fastqc_data.txt
 ````
 
-#### more 
+### More 
 
 Archetypal use: `more [options] <path of the file><enter>`
 
@@ -657,38 +665,40 @@ Archetypal use: `more [options] <path of the file><enter>`
 more fastqc_data.txt
 ````
 
-### less
+### Less
 
 
 **What you should remember?**
 
 * cat Print everything
+
 * head print the first 10 lines
+
 * tails print the last 10 lines
+
 * more page by page display
 
-## Permissions
+# Permissions
 
-### ownership
+## Ownership
 
 Each file or directory bleongs to a user and a group. To know the owner of a file, you can use the `ls -l` information. The owner information is displayed in the second column. The third column is the owner information. The owner of a file can change permissions on this file.
  
 In most of operating system, permissions are the rights that you have on a file or a directory.
 
-From the owner point of view: 
-### read
+## Read
 
 If you have the **r**ead rigth then you can read it, in the shell or using any fitted program. The read rights means that you can use a program to read it such as cat or any text editor. It means also that if you don't have the read rights, you can't use any unix tools or program to access it such as `cp` or `cat` for example. 
 
-### write
+## Write
 
 If you have the **w**right rigth then you can wright it, in the shell or using any fitted program. It means that you can modify (add/delete) all or part of it.
 
-### execute
+## Execute
 
 If you have the e**x**ecute rigth then you can execute it wherever it is a text file (called a script) or a binary file (program of application), in the shell or using any fitted program.
 
-### chmod
+## Chmod
 
 To know the rights that you have on a file. you can une the `ls` command with the `-l` options. The right are displayed in the first columns caracter 2 to 5. If you have a right, the corresponding letter is displayed if not, an hyphen is displayed.
 
@@ -735,7 +745,7 @@ The `u-r` option means for the user (the owner) remove the read right. The `u+r`
 * Directories have rights also.
 
 
-## looking for a string
+# Looking for a string
 
 **grep**
 
@@ -764,7 +774,7 @@ As you can see only the first occurence of lieng is substitute in each line.
 
 If you want to susbtitute every occurence of lieng, you have to add the global option.
 
-sed s/<motif to replace>/<replace motif>/g
+`sed s/<motif to replace>/<replace motif>/g`
 
 
 **What you should remember?**
@@ -773,7 +783,7 @@ sed s/<motif to replace>/<replace motif>/g
 
 * You can replace a specific string with the string of your choice in a file.
 
-## scripts
+# Scripts
 
 In some occasions, it can be more convenient to store instructions (commands) in a file and executes these instructions in one time. A file with bash instructions is then called a bash script. By convention, it has a `.sh` extension. In that script file, each instuction is on a new line. They will be executed sequentially (one by one, from top to bottom) and each instruction will have to finish before going to the next one.
 
@@ -793,14 +803,51 @@ You can also execute a script that is not in the working directory by using it p
 
 <path to the script directory>/<name of the script>.sh
 
+## Comments
 
-## streams
+You can escape a line in your script, meaning that this particular line that will be escaped will not be executed when the script will be executed. It may be also convenient to leave a comment in your script to document your code.
 
-### standard streams
+To comment a line, you have to use the special character `#` at the start of your script.
+
+They are several philosophies on how and what you should put and not put into your comments.
+
+We would recommand you to:
+
+* Have a brief description of what the script should do at the begining of it.
+
+* Whatever you feel necessary to understand your code.
+
+* If you find a solution to your problem from internet, most likely it will involve other part of programming that you ignore. Those same parts that may be an issue in the future. I would recommand you to put the URL of the page where you find the solution.
+
+<details>
+<summary>to go further</summary>
+<p>  
+
+In well written scripts, you may encounter a first line in your script with odd comment including an exclamation mark, followed by a path, it is not a comment. This line is called a **shebang** and contains a path to the desired interpreteur for this script. In the case of this formation, it would be the path to the bash interpretor. 
+
+It would be useful to add a shebang if:
+
+* the script is not in bash (zsh, csh or any other shell language)
+
+* the script is not written in shell language but you wish to use it as shell script (calling it directly by its name without having to call it's interpretor)
+</p>
+</details>
+
+## KISS principle
+
+**K**eep **i**t **s**imple and **s**afe
+
+Do not forget that someday, someone, most likely yourself may have to open, read and intervene on your script. Avoid any fancy and overcomplicated way of thinking.
+
+![](DaVincis_Quote.png)
+
+# Streams
+
+## Standard streams
 
 Each programs (unix tools, script, applications) can use 3 streams to interact with the user.
 
-#### stdin
+### Stdin
 
 The **st**andard **in**put consist of all the keyboard input since the program is called.
 
@@ -812,7 +859,7 @@ rm -i example_file.txt
 
 When using the `-i` option, `rm` is waiting for some standard input (keyboard input) before acting. In this case `touch` do not use any standard input `example_file.txt` is an argument. Standard input may not be mandatory.
 
-#### stdout
+### Stdout
 
 The **st**andard **out**put consist of what the program should exit during a regular execution.
 
@@ -822,7 +869,7 @@ pwd
 
 The path to the working directory is displayed on screen and constitute the standard output of `pwd`. As for the standard input, the stdout input may not be mandatory, for example `cp` or `mv` doesn't have any standard output(in their regular use).
 
-### stderr
+### Stderr
 
 The **st**andard **err**or consist of what the program should exit during an (anticipated) irregular execution.
 
@@ -847,7 +894,7 @@ In some environment, your standard error stream may be emphazised (colored in re
 
 * the standard error is everything that a program should output if an irregular use occurs, most likely into the terminal, must be anticipated by the programmers.
 
-### stream redirection
+## Stream redirection
 
 Until now we have seen concept that are shared between every operating system. Each concept and command have their counterpart in windows either in DOS or powershell. There is also some subtilities in the permission system in windows but the concept remains identicals.
 
@@ -859,7 +906,7 @@ Here is a list of corresponding tools between Windows shell (DOS or Powershell) 
 
 The stream redirection is one of the powerful tools that are specific to the UNIX/LINUX operating system. The main idea is that the output  stream of a program can be piped into the input stream of another program or directly into a file.
 
-### stream into a file
+### Stream into a file
 
 **>**
 
@@ -867,7 +914,7 @@ Archetypal use: `command [options] <arguments> > <output file><enter>`
 
 The `>` operator allow you to redirect the standard output stream in to a file.
 
-exemple:
+example:
 
 ````
 rm inventory.txt
@@ -877,7 +924,7 @@ ls /usr/local > inventory.txt
 more inventory.txt
 ````
 
-As you can observe in the exemple, the `>` operator redirect the standard output into the inventory text file. If inventory.txt does not exists, the `>` operator will create it.  The `>` overwrite any previous version of inventory.txt whithout any warning so be careful of its usage.
+As you can observe in the example, the `>` operator redirect the standard output into the inventory text file. If inventory.txt does not exists, the `>` operator will create it.  The `>` overwrite any previous version of inventory.txt whithout any warning so be careful of its usage.
 
 **>>**
 
@@ -885,7 +932,7 @@ In case you wish to keep the previous information of a file, the `>>` will write
 
 Archetypal use: `command [options] <arguments> >> <output file><enter>`
 
-exemple:
+example:
 
 ````
 rm inventory.txt
@@ -910,7 +957,7 @@ command [options] <arguments> 1> stdout_file.txt 2> stdout_file.txt
 Be careful not to leave some space between the character.
 <p>
 
-### stream from a file
+### Stream from a file
 
 **<**
 
@@ -923,7 +970,7 @@ In the example directory
 grep "Total Sequences" <  fastqc_data.txt
 ```
 
-### stream to another command
+### Stream to another command
 
 **|**
 
@@ -945,28 +992,133 @@ Welcome into a world of endless possibilities :).
 **What you should remember?**
 
 * You can redirect the streams into a file
+
 * `>` create and write or overwrite a file
+
 * `>>` write at the end of a file
+
 * `|` into another process
 
+# Some useful tricks
+
+* If you have to choose, english should be your choice.
+
+* [Google](https://www.google.com/) is your best friend to get some help. Just add Ubuntu to your search.
+
+* [stackoverflow](https://stackoverflow.com/) is also a place of choice to get some help.
+
+* Copy/Paste trick: Under linux, you can copy a text by selecting it and paste it using the middle button of a mice (must have a 3 button mice).
+
+* /usr/local/bin: If no one told you otherwise, this repertory is the one where most of the common(accessible by all the users of the computer) tools are usually located. This is not the case in the Curie network since we need to track several versions of the same tool.
+
+* `<tab>` button: In most systems, you can use tabs to use the auto complete function. It may be programmed differently depending on systems but it will:
+
+- complete if it has determined that it was the only possible choice.
+
+- propose a list of possible choice based on what was already enter.
+
+* all external disks, usb keys or any data storage device are in `/media/$USER/<name of the device>`. Depending on configuration the name of the device might be different than the one that you see in Windows.
+
+* Super User or admin: You are a regular user, some parts of your computer are protected from yourself or other regular user. The superuser or the admin is the fictional user that can execute everything. To know more take a look [here](https://en.wikipedia.org/wiki/Superuser)
+
+# Some usual cases
+
+## Connect to a distant machine
+
+`ssh <username in distant machine>@<distant machine identificator>`
+
+## Copy files between to machines 
+
+`scp <username in source machine>@<source machine identificator>:<path to the source file> <username in destination machine>@<detination machine identificator>:<path to the destination file>`
+
+# Expresssion regulieres
+
+## Automate
+
+```{r,echo=FALSE}
+DiagrammeR::grViz("
+digraph boxes_and_circles{
+ graph [rankdir = LR;]
+
+ node [shape=plaintext]
+ 0[label=\"\"]
+ 
+ node [shape=circle]
+ 1;2 
+ 
+ node [shape=doublecircle]
+ 3
+ 
+ 0->1  1->2[label=\"a\"] 1->3[label=\"b\"] 2->1[label=\"c\"] 2->3[label=\"a\"] 2->2[label=\"b\"]
+
+{ rank=same; 0; }
+{ rank=same; 1; }
+{ rank=same; 2; }
+{ rank=same; 3; }
+ 
+}",height=300)
+```
+
+More or less how a computer works.
+
+## Example
+
+* aa: $1 \xrightarrow{a} 2 \xrightarrow{a} 3 \xrightarrow{\$} OK$
+
+* acabcb: $1 \xrightarrow{a} 2 \xrightarrow{c} 1 \xrightarrow{a} 2 \xrightarrow{b} 2 \xrightarrow{c} 1 \xrightarrow{b} 3 \xrightarrow{\$}OK$
+
+* acc: $1 \xrightarrow{a} 2 \xrightarrow{c} 1 \xrightarrow{c} PAS\;OK$
+
+* abbc: $1 \xrightarrow{a} 2 \xrightarrow{b} 2 \xrightarrow{b} 2 \xrightarrow{c} 1 \xrightarrow{\$} PAS\;OK$
 
 
-## Some usual cases
+# Regular expression
 
-### Connect to a distant machine
+Depending on the language you write them or the version where you use them, the regular expression might change in their formalism. But in the end, their core ideas remains the same. 
 
-ssh <username in distant machine>@<distant machine identificator>
+* `^` : Matches the starting position within the string. In line-based tools, it matches the starting position of any line. 
 
-### Copy files between to machines 
+* `.` : Matches any single character.
 
-scp <username in source machine>@<source machine identificator>:<path to the source file> <username in destination machine>@<detination machine identificator>:<path to the destination file>
+* `[ ]` : Bracket expression. Matches a single character that is contained within the brackets.
 
-## Expresssion regulieres
+* `[^ ]` : Matches a single character that is not contained within the brackets.
+
+* `$` : Matches the ending position of the string, just before a string ending newline.
+
+* `*` : Matches the preceding element zero or more times.
+
+* `{m,n}` : Matches the preceding element at least m and not more than n times.
+
+Should also work, most of the time:
+
+* `?` : Matches the preceding element zero or one time. 
+
+* `+` : Matches the preceding element one or more times.
+
+* `|` :  	The choice operator matches either the expression before or the expression after the operator.
+
+Regular expressions can be used with `grep` or `sed`.
+
+````
+grep "Total Sequences" fastqc_data.txt | sed "s/[A-Za-z\t ]*//g"
+````
+
+Easier, don't you think?
 
 
+# Ressources
 
+Online ressources should be enough:
 
+On Unix/linux, terminal environment and bash:
 
+- [datacamp](https://www.datacamp.com/courses/tech:shell) in english
 
+- [freecodecamp](https://www.freecodecamp.org/news/linux-command-line-bash-tutorial/) in english
 
+- [openclassrooms](https://openclassrooms.com/fr/) in french
 
+On regular expression:
+
+- [regexone](https://regexone.com/) to practice regular expression

@@ -93,8 +93,6 @@ digraph boxes_and_circles{
 }",height=200)
 ```
 
----
-
 Each part of the software consume ressources
 
 example:
@@ -141,13 +139,13 @@ digraph boxes_and_circles{
 
 # BASH
 
-Bash: Bash is the most frequent command line interpretor in most linux distribution.
+**Bash:** Bash is the most frequent command line interpretor in most linux distribution.
 
 Bash will allow you tu use most of the bioinformatics tools, which are mainly command-line tools.
 
-![Root folder](Bash_Screenshot.png)
+<center>
 
-PS1: primaty prompt string, contain some useful informations or not, customisable
+![**Root folder**](images/Bash_Screenshot.png)
 
 ![**PS1 example**](images/example_PS1.png)
 
@@ -241,16 +239,18 @@ echo "hello world"
 
 <br>
 
-**What you should remember?**
-
-You can give a command or a program an argument.
-
 <details>
 <summary>To go further</summary>
 <p>  
 Technically an option is a reserved argument. Both have to be anticipated by the programmers.
 <p>
 </details>
+
+<br>
+
+**What you should remember?**
+
+You can give a command or a program an argument.
 
 <br>
 
@@ -401,7 +401,7 @@ A directory (also called folder) is a file system cataloging structures that con
 
 Archetypal use: `ls [options] <path to the folder to list><enter>`
 
-To known the content of a directory you can use the ls (**l**i**s**t) command and the path (will be explained later) to the directory as argument. Without arument, `ls` will list everything in the working directory (will also be explained later).
+To know the content of a directory you can use the ls (**l**i**s**t) command and the path (will be explained later) to the directory as argument. Without arument, `ls` will list everything in the working directory (will also be explained later).
 
 If you don't provide a path to a folder, ls will list the working directory.
 
@@ -423,7 +423,7 @@ ls /
 
 <center>
 
-![**Root folder**](Ubuntu_Filesystem_Hierarchy.png)
+![**Root folder**](images/Ubuntu_Filesystem_Hierarchy.png)
 </center>
 
 Most of the linux distribution share the same directory structure at the top most level. In windows, each disk has it's own root. 
@@ -696,9 +696,9 @@ Be careful of overwritting pre existing files, if the `-i` weren't present, mv w
 
 * mv = cp `<source> <destination>` then rm `<source>`
 
-## Text file: cat, head, tail, more
+## Text file: cat, head, tail, more, less
 
-### Cat
+### cat
 
 con**cat**enate
 
@@ -738,17 +738,17 @@ tail fastqc_data.txt
 
 <br>
 
-#### more 
+### more 
 
 Archetypal use: `more [options] <path of the file><enter>`
 
-**more** allows you to display a text file, page by page and use `space` to moove to the **next** page and `q` to quit. 
+**more** allows you to display a text file, page by page and use `space` to moove to the **next** page, `arrows` to moove line by line and `q` to quit. 
 
 ````
 more fastqc_data.txt
 ````
 
-### Less
+### less
 
 Archetypal use: `less [options] <path of the file><enter>`
 
@@ -777,7 +777,7 @@ less fastqc_data.txt
 ## Ownership
 
 Each file or directory belongs to a user and a group. To know the owner of a file, you can use the `ls -l` information. The owner information is displayed in the third column. The owner of a file can change permissions on this file.
-The right for owner, group and other are displayed in the first columns 3 to 5. If you have a right, the corresponding letter is displayed if not, an hyphen is displayed.
+The right for owner, group and other are displayed in the first columns. If you have a right, the corresponding letter is displayed if not, an hyphen is displayed.
 
 In most of operating system, permissions are the rights that you have on a file or a directory.
 
@@ -792,7 +792,7 @@ In most of operating system, permissions are the rights that you have on a file 
 </center>
 From the owner point of view: 
 
-## read
+## Read
 
 If you have the **r**ead right then you can read it, in the shell or using any fitted program. The read rights means that you can use a program to read it such as cat or any text editor. It means also that if you don't have the read rights, you can't use any unix tools or program to access it such as `cp` or `cat` for example. 
 
@@ -808,7 +808,7 @@ If you have the e**x**ecute right then you can execute it whether it is a text f
 
 **ch**ange **mod**e 
 
-If you want to change the rights that you have on a right you can use the `chmod` command.
+If you want to change the rights that you have on a file you can use the `chmod` command.
 
 ````
 ls -l fastqc_data.txt
@@ -821,7 +821,7 @@ ls -l fastqc_data.txt
 cat fastqc_data.txt
 ````
 
-The `u-r` option means for the user (the owner) remove the read right. The `u+r` option mean for the user (the owner) to add the read rigth. You can only change the rights of the files that you own. You can encounter other way to defined rights to a file base on number but for a simpler use, we recommend you to stay with this formalism until you are more familiar with shell.
+The `u-r` option means for the user (the owner) remove the read right. The `u+r` option mean for the user (the owner) to add the read right You can only change the rights of the files that you own. You can encounter other way to defined rights to a file based on number but for a simpler use, we recommend you to stay with this formalism until you are more familiar with shell.
 
 <details>
 <summary>to go further</summary>
@@ -917,27 +917,35 @@ You can also execute a script that is not in the working directory by using it p
 
 `<path to the script directory>/<name of the script>.sh`
 
+<center>
+
+![**example_script**](images/example_script.png)
+
+</center>
+
+<br> 
+
 ## Comments
 
 You can escape a line in your script, meaning that this particular line that will be escaped will not be executed when the script will be executed. It may be also convenient to leave a comment in your script to document your code.
 
-To comment a line, you have to use the special character `#` at the start of your script.
+To comment a line, you have to use the special character `#` at the start of of the line.
 
 They are several philosophies on how and what you should put and not put into your comments.
 
-We would recommand you to:
+We would recommend you to:
 
-* Have a brief description of what the script should do at the begining of it.
+* Have a brief description of what the script should do at the beginning of it.
 
 * Whatever you feel necessary to understand your code.
 
-* If you find a solution to your problem from internet, most likely it will involve other part of programming that you ignore. Those same parts that may be an issue in the future. I would recommand you to put the URL of the page where you find the solution.
+* If you find a solution to your problem from internet, most likely it will involve other part of programming that you ignore. Those same parts that may be an issue in the future. I would recommend you to put the URL of the page where you find the solution.
 
 <details>
 <summary>to go further</summary>
 <p>  
 
-In well written scripts, you may encounter a first line in your script with odd comment including an exclamation mark, followed by a path, it is not a comment. This line is called a **shebang** and contains a path to the desired interpreteur for this script. In the case of this formation, it would be the path to the bash interpretor. 
+In well written scripts, you may encounter a first line in your script with odd comment including an exclamation mark, followed by a path, it is not a comment. This line is called a **shebang** and contains a path to the desired interpreter for this script. In the case of this formation, it would be the path to the bash interpreter. 
 
 It would be useful to add a shebang if:
 
@@ -953,7 +961,7 @@ It would be useful to add a shebang if:
 
 Do not forget that someday, someone, most likely yourself may have to open, read and intervene on your script. Avoid any fancy and overcomplicated way of thinking.
 
-![](DaVincis_Quote.png)
+![](images/DaVincis_Quote.png)
 
 # Streams
 
@@ -994,7 +1002,7 @@ Of course `mffsldqigvdsacfsdfgeg` do not exists and nothing should be expected. 
 
 <center>
 
-![**Root folder**](StdErr.png)
+![**Stdout example**](images/StdErr.png)
 
 </center>
 
@@ -1133,13 +1141,13 @@ Welcome into a world of endless possibilities :).
 
 * Copy/Paste trick: Under linux, you can copy a text by selecting it and paste it using the middle button of a mice (must have a 3 button mice).
 
-* /usr/local/bin: If no one told you otherwise, this repertory is the one where most of the common(accessible by all the users of the computer) tools are usually located. This is not the case in the Curie network since we need to track several versions of the same tool.
+* /usr/local/bin: If no one told you otherwise, this repertory is the one where most of the common (accessible by all the users of the computer) tools are usually located. This is not the case in the Curie network since we need to track several versions of the same tool.
 
 * `<tab>` button: In most systems, you can use tabs to use the auto complete function. It may be programmed differently depending on systems but it will:
 
-- complete if it has determined that it was the only possible choice.
+  - complete if it has determined that it was the only possible choice.
 
-- propose a list of possible choice based on what was already enter.
+  - propose a list of possible choice based on what was already enter.
 
 * all external disks, usb keys or any data storage device are in `/media/$USER/<name of the device>`. Depending on configuration the name of the device might be different than the one that you see in Windows.
 
@@ -1246,3 +1254,9 @@ On Unix/linux, terminal environment and bash:
 On regular expression:
 
 - [regexone](https://regexone.com/) to practice regular expression
+
+- [regex101](https://regex101.com/) to build your regex
+
+Other:
+
+- [explainshell](https://explainshell.com/) to understand bash commands

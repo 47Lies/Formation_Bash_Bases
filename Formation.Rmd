@@ -1,9 +1,14 @@
 ---
+title : "Bash to basics"
+author: "Lieng Taing & Tom Gutman"
+date: "15th September 2020"
 output:
   html_document:
     self_contained: yes
     toc: yes
     toc_float: yes
+    highlight: pygments
+    theme: cerulean
 ---
 
 
@@ -23,6 +28,7 @@ Input -> Compute -> Output
   { rank=same; Input; Output; }
 }",height=100)
 ```
+
 **Smartphone**
 
 ```{r,echo=FALSE}
@@ -41,7 +47,6 @@ digraph boxes_and_circles{
 ```
 
 **ATM**
-
 
 ```{r,echo=FALSE}
 library(DiagrammeR)
@@ -91,19 +96,19 @@ digraph boxes_and_circles{
 }",height=200)
 ```
 
+---
 
 Each part of the software consume ressources
 
-exemple:
+exemple: **Save a file in excel**
 
-**Save a file in excel**
 ```{r,echo=FALSE}
 DiagrammeR::grViz("
 digraph boxes_and_circles{
  graph [rankdir = LR]
 
  node [width=2, shape = box, height=4]
- Listener[label=\"User possible inputs:\nMouse position & button\nSave button\nMenu navigation\nKeyboard command(CTRL+S,ALT+F->ALT+S)\"]; A[label=\"Program action:\n Save the file\"]; O[label=\"Output response:\nLoading bar is displayed during the  writting\nThe file name does not have a star anymore\nThe save button is grey\"];
+ Listener[label=\"User possible inputs:\n\nMouse position & button\n\nSave button\n\nMenu navigation\n\nKeyboard command(CTRL+S,ALT+F->ALT+S)\"]; A[label=\"Program action:\n\n Save the file\"]; O[label=\"Output response:\n\nLoading bar is displayed during the  writting\n\nThe file name does not have a star anymore\nThe save button is grey\"];
 
  Listener->A A->O
 
@@ -112,7 +117,8 @@ digraph boxes_and_circles{
 
 Every part of the software has to be programmed and might consume ressources. At the beginning of informatics and nowdays in some specific cases, you might want to simplify every possible input and output to focus mainly on the program.
 
-Shell: Command line interpreter (CLI) that gave you acces to internal functionalities of the operating system. In other word, your operating system have some built in tools that you can use directly, with keyboard input and minimal output.
+**Shell:** Command line interpreter (CLI) that gave you acces to internal functionalities of the operating system. In other word, your operating system have some built in tools that you can use directly, with keyboard input and minimal output.  
+
 
 **What you should remember?**
 
@@ -132,18 +138,28 @@ digraph boxes_and_circles{
 }",height=100)
 ```
 
+  
+---
 
 ## BASH
 
-Bash: Bash is the most frequent command line interpretor in most linux distribution.
+**Bash** is the most frequent command line interpretor in linux distributions.
 
-Bash will allow you tu use most of the bioinformatics tools, which are mainly command-line tools.
+It will allow you tu use most of the bioinformatics tools, which are mainly command-line tools.
 
-![Root folder](Bash_Screenshot.png)
+<center>
 
-PS1: primaty prompt string, contain some useful informations or not, customisable
+![**Root folder**](Bash_Screenshot.png)
 
-Command zone: provided by the user, usually a command or the name of a script 
+![**PS1 example**](images/example_PS1.png)
+
+</center>
+
+**PS1:** primary prompt string, contain some useful informations or not, customisable
+
+**Command zone:** provided by the user, usually a command or the name of a script 
+
+---
 
 ## Concepts & Commands
 
@@ -176,6 +192,7 @@ by convention:
 
 * `--` option in its longform considered as human readable
 
+<br>
 
 <details>
 <summary>To go further</summary>
@@ -206,6 +223,7 @@ man man
 </p>
 </details>
 
+<br>
 
 **What you should remember?**
 
@@ -228,6 +246,8 @@ echo "hello world"
 
 **"hello world"** is the argument passed to the echo command. Since it has several character,it is called a character string, or simply string. **echo** will display on the terminal what is inbetween \".
 
+<br>
+
 **What you should remember?**
 
 You can give a command or a program an argument.
@@ -237,8 +257,9 @@ You can give a command or a program an argument.
 <p>  
 Technically an option is a reserved argument. Both have to be anticipated by the programmers.
 <p>
-<details>
+</details>
 
+<br>
 
 #### variable
 
@@ -246,37 +267,50 @@ Archetypal use: `<name of my variable>=<value of my variable><enter>`
 
 
 ````
-ma_variable_pour_l_example="hello world"
+ma_variable_pour_l_exemple="hello world"
 ````
 
-**ma_variable_pour_l_example** is a variable, it has a name \"ma_variable_pour_l_example\" and we assign it the value "hello world". A variable is a place holder for a value that we may not want to write directly for any reason (multiple access across the file, possible modification, unknown value before execution of code).
+**ma_variable_pour_l_exemple** is a **variable**, it has a name \"ma_variable_pour_l_exemple\" and we assign it the value "hello world".  
+A variable is a place holder for a value that we may not want to write directly for any reason (multiple access across the file, possible modification, unknown value before execution of code).
 
-**=** is an operator that will create the variable and initiate it with the value that follows, be careful not to leave some space before or after, otherwise the BASH will interpret it as a command call to ma_variable_pour_l_example, which should results to an error.
+**=** is an **operator** that will create the variable and initiate it with the value that follows, be careful not to leave some space before or after, otherwise the BASH will interpret it as a command call to ma_variable_pour_l_exemple, which should results to an error.
 
-**\_** since BASH interpret spaces as command separator we could not call our variable `ma variable pour l example` otherwise it would have call the `ma` command and `variable pour l example` would have been considered as arguments. Since the `-` is by convention reserved to the options, `_` is a good alternative.
+**\_** since BASH interpret spaces as command separator we could not call our variable `ma variable pour l exemple` otherwise it would have call the `ma` command and `variable pour l exemple` would have been considered as arguments. Since the `-` is by convention reserved to the options, `_` is a good alternative.
 
 ````
-echo ma_variable_pour_l_example
-echo "${ma_variable_pour_l_example}"
+echo ma_variable_pour_l_exemple
+echo "${ma_variable_pour_l_exemple}"
 ````
 
 BASH will need some special character to interpret it as a variable and not just as a simple string.
 
-`${}` will allow access to the value of the variable. They is some other ways to access variable values but `${}` has proven to be portable between command line interpretors and their different versions.
+`${}` will allow access to the value of the variable. There is some other ways to access variable values but `${}` has proven to be portable between command line interpretors and their different versions.
 
+<center>
+
+![**variable_example1**](images/variable_example1.png)
+
+![**variable_example2**](images/variable_example2.png)
+
+![**variable_example3**](images/variable_example3.png)
+
+</center>
+
+<br>
 
 #### case
 
 ````
-echo "${Ma_variable_pour_l_example}"
+echo "${Ma_variable_pour_l_exemple}"
 ````
 
-For BASH and every other Linux based command line interpretor (everything out of windows DOS or powershell) there is a difference between ma_variable_pour_l_example and Ma_variable_pour_l_example. 
+For BASH and every other Linux based command line interpretor (everything out of windows DOS or powershell) there is a difference between **m**a_variable_pour_l_exemple and **M**a_variable_pour_l_exemple. 
 
+<br>
 
-##### Recommandations
+##### Recommendations
 
-They is several norms for naming variables but they might not be respected. We will recomand you to:
+They is several norms for naming variables but they might not be respected. We will recommend you to:
 
 * don't use full upper case letters 
 
@@ -290,6 +324,7 @@ They is several norms for naming variables but they might not be respected. We w
 
 * avoid any punctuation
 
+<br> 
 
 <details>
 <summary>to go further</summary>
@@ -298,20 +333,22 @@ They is several norms for naming variables but they might not be respected. We w
 **escape character**
 
 ````
-Ma_variable_pour_l_example=${ma_variable_pour_l_example}
+Ma_variable_pour_l_exemple=${ma_variable_pour_l_exemple}
 ````
 
 We can use the value of a variale and copy it to another variable
 
 ````
-echo "${ma_variable_pour_l_example}${Ma_variable_pour_l_example}"
+echo "${ma_variable_pour_l_exemple}${Ma_variable_pour_l_exemple}"
 ````
 
 We can use several variables in the same call
 
 ````
-echo -e "${ma_variable_pour_l_example}\n\"${Ma_variable_pour_l_example}\""
+echo -e "${ma_variable_pour_l_exemple}\n\"${Ma_variable_pour_l_exemple}\""
 ````
+
+<br> 
 
 `-e` is the echo option allowing interpretation of backslash escapes.
 
@@ -321,10 +358,11 @@ In `\n`, the backslash (`\`) is there for the interpreter to say that the follow
 
 In `\"`, the backslash is there for the interpreter to say that the following one(`\"`) is to be considered as a regular character. In this case the `\` is considered as an escape character preventing interpretation of the following character. 
 
+<br> 
 
 **Naming Convention**
 
-You can enconter several naming convention:
+You can encounter several naming convention:
 
 Formatting | 	Name(s)
 :-:|:-:
@@ -340,11 +378,15 @@ TWO-WORDS |	TRAIN-CASE, COBOL-CASE, SCREAMING-KEBAB-CASE
 Two-Words |	Train-Case, HTTP-Header-Case
 source wikipedia:[https://en.wikipedia.org/wiki/Naming_convention_(programming)](https://en.wikipedia.org/wiki/Naming_convention_(programming))
 
+<br> 
+
 **environment vairable**
 
 Some variables are already defined by the operating system for internal operations. Do not use their name since it may create a conflict. They are usually written in capital letters only. They can be access with the `printenv` command.
 </p>
 </details>
+
+<br> 
 
 **What you should remember?**
 
@@ -352,6 +394,7 @@ Some variables are already defined by the operating system for internal operatio
 * You can access information of a variable using `${<name_of_the variable>}`.
 * Be careful of the letter case, more generally be careful of how you name your variables
 
+<br> 
 
 ### Directory, root directory, path, home, working directory, absolute path, relative path
 
@@ -366,6 +409,12 @@ To known the content of a directory you can use the ls (**l**i**s**t) command an
 
 If you don't provide a path to a folder, ls will list the working directory.
 
+<center>
+
+![**example_ls**](images/example_ls.png)
+
+</center>
+
 #### root directory
 
 The root directory is the top most directory in a hierarchy. 
@@ -376,7 +425,10 @@ In a Unix operating system, it look like this:
 ls /
 ````
 
-![Root folder](Ubuntu_Filesystem_Hierarchy.png)
+<center>
+
+![**Root folder**](Ubuntu_Filesystem_Hierarchy.png)
+</center>
 
 Most of the linux distribution share the same directory structure at the top most level. In windows, each disk has it's own root. 
 
@@ -400,6 +452,11 @@ The home directory is the directory containing the files (and directories) of a 
 
 Sometimes, you can see `~` as a place holder for the home directory.
 
+<center>
+
+![**example_home**](images/example_home.png)
+
+</center>
 
 #### working directory
 
@@ -409,6 +466,12 @@ Archetypal use: `pwd [options]<enter>`
 
 
 Since you open a terminal and until you close it, you are somewhere in the file system. That somewhere is called the working directory. When you open a terminal, your working directory is your home directory. To known the current working directory you can use the `pwd` command (**p**rint **w**orking **d**irectory).
+
+<center>
+
+![**example_pwd**](images/example_pwd.png)
+
+</center>
 
 **cd**
 
@@ -468,6 +531,14 @@ When we look at a path, they're is two possible origins:
 
 As long as they point to the same location they are strictly similar. Depending on the circusmstances one might be more fitted to the other.
 
+<center>
+
+![**example_relative_path**](images/example_relative_path.png)
+
+</center>
+
+<br>
+
 #### create and delete directories
 
 Archetypal use: `mkdir [options] <name of the directory to create><enter>`
@@ -485,6 +556,8 @@ mkdir example_directory
 
 If the working directory already contains a `example_directory`, mkdir will output (return) an error message. 
 
+<br>
+
 <details>
 <summary>to go further</summary>
 <p>  
@@ -493,6 +566,7 @@ You can also provide a path to the directory that you want to create. By default
 <p>
 </details>
 
+<br>
 
 **rmdir**
 
@@ -508,6 +582,18 @@ ls
 
 If the working directory do not contains a `example_directory`, rmdir will output (return) an error message. 
 
+<details>
+<summary>to go further</summary>
+<p>  
+<center>
+
+![**exampke_mkdir -p**](images/exampke_mkdir.png)
+
+</center>
+<p>
+</details>
+
+<br>
 
 **What you should remember?**
 
@@ -525,13 +611,13 @@ If the working directory do not contains a `example_directory`, rmdir will outpu
 
 ### File, copy, move, remove
 
-A file is a computer ressource to record ny kind of data (text, sound, video, picture, software). Most of the time they contain an extension (.txt for example) to indicate the kind of stored data.
+A file is a computer ressource to record any kind of data (text, sound, video, picture, software). Most of the time they contain an extension (`.txt` for example) to indicate the kind of stored data.
 
 We can distinguate two kind of files:
 
 * **text file** also refered as flat file. These files contains text that can be directly read within the shell
 
-* **binary file** any other kind of file that can not be directly read from the shell. Since the begenning of this lesson, every command or program that we use are binary files.
+* **binary file** any other kind of file that can not be directly read from the shell. Since the beginning of this lesson, every command or program that we use are binary files.
 
 **touch**
 
@@ -545,6 +631,8 @@ ls -al --time-style=full-iso
 ````
 
 Touch create an empty file, the 5th column of the `ls -al` is the file size, in our case it should be 0. It is a misuse of the touch programs.
+
+--> J'ai pas compris ce que tu voulais dire ni pourquoi tu utilises --time-style=full-iso
 
 #### cp
 
@@ -604,6 +692,8 @@ mv -i exemple_file_c.txt exemple_file_b.txt
 
 Be careful of overwritting pre existing files, if the `-i` weren't present, mv would have simply replace pre existing `exemple_file_b.txt`.
 
+<br>
+
 **What you should remember?**
 
 * You can directly read a text file. You can not directly read a binary file.
@@ -627,6 +717,8 @@ in the folder where this example is located, try:
 cat fastqc_data.txt
 ````
 
+<br>
+
 #### head 
 
 Archetypal use: `head [options] <path of the file><enter>`
@@ -636,6 +728,8 @@ Archetypal use: `head [options] <path of the file><enter>`
 ````
 head fastqc_data.txt
 ````
+
+<br>
 
 #### tail
 
@@ -647,6 +741,8 @@ Archetypal use: `tail [options] <path of the file><enter>`
 tail fastqc_data.txt
 ````
 
+<br>
+
 #### more 
 
 Archetypal use: `more [options] <path of the file><enter>`
@@ -657,8 +753,17 @@ Archetypal use: `more [options] <path of the file><enter>`
 more fastqc_data.txt
 ````
 
-### less
+#### less
 
+Archetypal use: `less [options] <path of the file><enter>`
+
+**less** is very similar to **more**. Its use is identical but the file to display is in a separate window. 
+
+````
+less fastqc_data.txt
+````
+
+<br>
 
 **What you should remember?**
 
@@ -667,30 +772,41 @@ more fastqc_data.txt
 * tails print the last 10 lines
 * more page by page display
 
+---
+
 ## Permissions
 
 ### ownership
 
-Each file or directory bleongs to a user and a group. To know the owner of a file, you can use the `ls -l` information. The owner information is displayed in the second column. The third column is the owner information. The owner of a file can change permissions on this file.
- 
+Each file or directory belongs to a user and a group. To know the owner of a file, you can use the `ls -l` information. The owner information is displayed in the third column. The owner of a file can change permissions on this file.
+The right for owner, group and other are displayed in the first columns 3 to 5. If you have a right, the corresponding letter is displayed if not, an hyphen is displayed.
+
 In most of operating system, permissions are the rights that you have on a file or a directory.
 
+**Example**
+
+<center>
+
+![**permissions**](images/permissions.png)
+
+![**example_permissions**](images/example_permissions.png)
+
+</center>
 From the owner point of view: 
+
 ### read
 
-If you have the **r**ead rigth then you can read it, in the shell or using any fitted program. The read rights means that you can use a program to read it such as cat or any text editor. It means also that if you don't have the read rights, you can't use any unix tools or program to access it such as `cp` or `cat` for example. 
+If you have the **r**ead right then you can read it, in the shell or using any fitted program. The read rights means that you can use a program to read it such as cat or any text editor. It means also that if you don't have the read rights, you can't use any unix tools or program to access it such as `cp` or `cat` for example. 
 
 ### write
 
-If you have the **w**right rigth then you can wright it, in the shell or using any fitted program. It means that you can modify (add/delete) all or part of it.
+If you have the **w**right right then you can write it, in the shell or using any fitted program. It means that you can modify (add/delete) all or part of it.
 
 ### execute
 
-If you have the e**x**ecute rigth then you can execute it wherever it is a text file (called a script) or a binary file (program of application), in the shell or using any fitted program.
+If you have the e**x**ecute right then you can execute it whether it is a text file (called a script) or a binary file (program of application), in the shell or using any fitted program.
 
 ### chmod
-
-To know the rights that you have on a file. you can une the `ls` command with the `-l` options. The right are displayed in the first columns caracter 2 to 5. If you have a right, the corresponding letter is displayed if not, an hyphen is displayed.
 
 **ch**ange **mod**e 
 
@@ -707,18 +823,20 @@ ls -l fastqc_data.txt
 cat fastqc_data.txt
 ````
 
-The `u-r` option means for the user (the owner) remove the read right. The `u+r` option mean for the user (the owner) to add the read rigth. You can only change the rights of the files that you own. You can encounter other way to defined rights to a file base on number but for a simpler use, we recommand you to stay with this formalism until you are more familiar with shell.
+The `u-r` option means for the user (the owner) remove the read right. The `u+r` option mean for the user (the owner) to add the read rigth. You can only change the rights of the files that you own. You can encounter other way to defined rights to a file base on number but for a simpler use, we recommend you to stay with this formalism until you are more familiar with shell.
 
 <details>
 <summary>to go further</summary>
 <p>  
 
-* In the `ls -l` output, we can see that there is place for other users rights. You are defined as **u**ser. Other users are defined by the relation they share with you. You also belongs to a **g**roup, at least a group of yourself. You may want to share some rights with the group and not to unknown users or users outsite the group. The third and last group of users are the **o**thers.
+* In the `ls -l` output, we can see that there is place for other users rights. You are defined as **u**ser. Other users are defined by the relation they share with you. You also belongs to a **g**roup, at least a group of yourself. You may want to share some rights with the group and not to unknown users or users outside the group. The third and last group of users are the **o**thers.
 
 * The directories also have rights. You need the execute permissions to cross a directory.
 
 </p>
 </details>
+
+<br>
 
 **What you should remember?**
 
@@ -734,6 +852,7 @@ The `u-r` option means for the user (the owner) remove the read right. The `u+r`
 
 * Directories have rights also.
 
+---
 
 ## looking for a string
 
@@ -745,8 +864,12 @@ Archetypal use: `grep [options] \"<pattern to look for>\"  <path of the file to 
 
 from the example file:
 ````
-grep "total" fastq_report.txt
+grep "total" fastqc_data.txt
+grep "median" fastqc_data.txt
+grep -i "median" fastqc_data.txt
 ````
+
+<br>
 
 **sed**
 
@@ -766,6 +889,7 @@ If you want to susbtitute every occurence of lieng, you have to add the global o
 
 sed s/<motif to replace>/<replace motif>/g
 
+<br>
 
 **What you should remember?**
 
@@ -773,9 +897,11 @@ sed s/<motif to replace>/<replace motif>/g
 
 * You can replace a specific string with the string of your choice in a file.
 
+---
+
 ## scripts
 
-In some occasions, it can be more convenient to store instructions (commands) in a file and executes these instructions in one time. A file with bash instructions is then called a bash script. By convention, it has a `.sh` extension. In that script file, each instuction is on a new line. They will be executed sequentially (one by one, from top to bottom) and each instruction will have to finish before going to the next one.
+In some occasions, it can be more convenient to store instructions (commands) in a file and executes these instructions in one time. A file with bash instructions is then called a bash script. By convention, it has a `.sh` extension. In that script file, each instruction is on a new line. They will be executed sequentially (one by one, from top to bottom) and each instruction will have to finish before going to the next one.
 
 Before executing a bash script, you need the execution rights.
 
@@ -793,6 +919,7 @@ You can also execute a script that is not in the working directory by using it p
 
 <path to the script directory>/<name of the script>.sh
 
+---
 
 ## streams
 
@@ -831,11 +958,19 @@ mffsldqigvdsacfsdfgeg
 ````
 Of course `mffsldqigvdsacfsdfgeg` do not exists and nothing should be expected. But since calling an non existant software is an irregular execution, bash (and most shell) will output and error message.
 
-![Root folder](StdErr.png)
+<center>
 
-Be careful, not every program have build in validity test. A program may encounter an issue whitout printing an error due to several reasons (conception's choice, poor conception, unanticipated error).
+![**Root folder**](StdErr.png)
 
-In some environment, your standard error stream may be emphazised (colored in red).
+</center>
+
+<br>
+
+Be careful, not every program have build in validity test. A program may encounter an issue without printing an error due to several reasons (conception's choice, poor conception, unanticipated error).
+
+In some environment, your standard error stream may be emphasized (colored in red).
+
+<br>
 
 **What you should remember?**
 
@@ -849,7 +984,7 @@ In some environment, your standard error stream may be emphazised (colored in re
 
 ### stream redirection
 
-Until now we have seen concept that are shared between every operating system. Each concept and command have their counterpart in windows either in DOS or powershell. There is also some subtilities in the permission system in windows but the concept remains identicals.
+Until now we have seen concept that are shared between every operating system. Each concept and command have their counterpart in windows either in DOS or powershell. There is also some subtilities in the permission system in windows but the concept remains identical.
 
 <details>
 <summary>to go further</summary>
@@ -858,6 +993,8 @@ Here is a list of corresponding tools between Windows shell (DOS or Powershell) 
 <p>
 
 The stream redirection is one of the powerful tools that are specific to the UNIX/LINUX operating system. The main idea is that the output  stream of a program can be piped into the input stream of another program or directly into a file.
+
+<br>
 
 ### stream into a file
 
@@ -950,6 +1087,7 @@ Welcome into a world of endless possibilities :).
 * `|` into another process
 
 
+---
 
 ## Some usual cases
 
@@ -960,6 +1098,8 @@ ssh <username in distant machine>@<distant machine identificator>
 ### Copy files between to machines 
 
 scp <username in source machine>@<source machine identificator>:<path to the source file> <username in destination machine>@<detination machine identificator>:<path to the destination file>
+
+---
 
 ## Expresssion regulieres
 

@@ -250,7 +250,7 @@ Technically an option is a reserved argument. Both have to be anticipated by the
 
 **What you should remember?**
 
-You can give a command or a program an argument.
+You can give to a command or a program an argument.
 
 <br>
 
@@ -866,6 +866,8 @@ grep "total" fastqc_data.txt
 grep "median" fastqc_data.txt
 grep -i "median" fastqc_data.txt
 ````
+What does the `-i` option change? Where can i find this information?
+
 
 <br>
 
@@ -875,8 +877,10 @@ grep -i "median" fastqc_data.txt
 
 Archetypal use: `sed [options] s/<motif to replace>/<replace motif>/ <file where to substitute strings><enter>`
 
+Sed do not alter the input file, so feel free to test it.
+
 ````
-sed s/lieng/tom/ example_ls_output.txt
+sed s/ltaing/tom/ example_ls_output.txt
 ````
 
 As you can see if the line in the file do not contain any match with the motif, it will be output unaltered.
@@ -924,6 +928,39 @@ You can also execute a script that is not in the working directory by using it p
 </center>
 
 <br> 
+
+## Text editor
+
+Since you might want to use or consult script, you might need a text editor. Do not forget to name your bash script file with the `.sh` extension.
+
+You might want to take a look at theses text editor and pick up one with who you will have some affinities.
+
+* [visual code studio](https://code.visualstudio.com/)
+
+* [atom](https://atom.io/)
+
+* [sublime](https://www.sublimetext.com/)
+
+They exists on every plateforms(microsoft/macOS/linux).
+
+In some occasions, you might want something more lightweight:
+
+* [Notepad++](https://notepad-plus-plus.org/) on windows
+
+* textEdit on macOS, installed by default. It would be a misuse ...
+
+
+<details>
+<summary>to go further</summary>
+<p>  
+For some very specific case, you can also want to be able to use some basics vi commands.
+
+the basic command: how to quit whithout saving
+`:q!`
+
+For more commands, you can take a look [here](http://wiki.linux-france.org/wiki/Utilisation_de_vi).
+</p>
+</details>
 
 ## Comments
 

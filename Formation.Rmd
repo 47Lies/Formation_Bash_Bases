@@ -1241,7 +1241,7 @@ More or less how a computer works.
 * abbc: $1 \xrightarrow{a} 2 \xrightarrow{b} 2 \xrightarrow{b} 2 \xrightarrow{c} 1 \xrightarrow{\$} PAS\;OK$
 
 
-# Regular expression
+## Regular expression in action
 
 Depending on the language you write them or the version where you use them, the regular expression might change in their formalism. But in the end, their core ideas remains the same. 
 
